@@ -9,7 +9,7 @@ class Genre(models.Model):
         ("FINANCE", "F"),
         ("POLITICS", "P"),
     )
-    name = models.CharField(max_length=255, choices=GENRE_CHOICES, default="R")
+    name = models.CharField(max_length=10, choices=GENRE_CHOICES, default="R")
 
     def __str__(self):
         return self.name
