@@ -3,7 +3,7 @@ import uuid
 from django.db import models
 from django.contrib.auth.models import User
 from django.conf import settings
-
+from user.models import Author
 # Create your models here.
 
 class Genre(models.Model):
@@ -13,24 +13,31 @@ class Genre(models.Model):
         ("FINANCE", "F"),
         ("POLITICS", "P"),
     )
-    name = models.CharField(max_length=10, choices=GENRE_CHOICES, default="R")
+    name = models.CharField(max_length=10, choices=GENRE_CHOICES, default="R", unique=True )
 
     def __str__(self):
         return self.name
 
 class Language(models.Model):
-    name = models.CharField(max_length=100)
+    LANG_CHOICES = (
+        ("YORUBA", "Y"),
+        ("ENGLISH", "E"),
+        ("FRENCH", "F"),
+    )
+    name = models.CharField(max_length=10, choices=LANG_CHOICES, default="Y", unique=True)
 
     def __str__(self):
         return self.name
 
 
-class Author(models.Model):
-    first_name = models.CharField(max_length=100)
-    last_name = models.CharField(max_length=100)
-    dob = models.DateField()
-    email = models.EmailField()
-
+# class Author(models.Model):
+#     first_name = models.CharField(max_length=100)
+#     last_name = models.CharField(max_length=100)
+#     dob = models.DateField()
+#     email = models.EmailField()
+#
+#     def __str__(self):
+#         return f'self.first_name + self.last_name'
 
 
 class Book(models.Model):
@@ -38,6 +45,8 @@ class Book(models.Model):
     summary = models.TextField()
     isbn = models.CharField(max_length=13, unique=True)
     genre = models.ForeignKey(Genre, on_delete=models.CASCADE)
+    language = models.ForeignKey(Language, on_delete=models.CASCADE)
+    author = models.ManyToManyField(Author, related_name="book")
 
     def __str__(self):
         return self.title
