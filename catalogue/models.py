@@ -14,6 +14,11 @@ class Genre(models.Model):
     def __str__(self):
         return self.name
 
+class Language(models.Model):
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
 
 
 class Author(models.Model):
@@ -35,3 +40,11 @@ class Book(models.Model):
         return self.title
 
 
+class BookInstance(models.Model):
+    LOAN_STATUS = (
+        ("A", "AVAILABLE"),
+        ("B","BORROWED"),
+        ("M", "MAINTENANCE"),
+    )
+    book = models.ForeignKey(Book, on_delete=models.CASCADE)
+    status = models.CharField(max_length=10, choices=LOAN_STATUS, default="A")
