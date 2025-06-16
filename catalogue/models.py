@@ -1,4 +1,9 @@
+import uuid
+
 from django.db import models
+from django.contrib.auth.models import User
+
+
 
 # Create your models here.
 
@@ -46,5 +51,10 @@ class BookInstance(models.Model):
         ("B","BORROWED"),
         ("M", "MAINTENANCE"),
     )
+
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
     status = models.CharField(max_length=10, choices=LOAN_STATUS, default="A")
+    return_date = models.DateTimeField(blank=False, null=False)
+    comments=models.TextField(blank=True, null=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
