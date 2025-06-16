@@ -35,7 +35,6 @@ class Author(models.Model):
 
 class Book(models.Model):
     title = models.CharField(max_length=255)
-    author = ""
     summary = models.TextField()
     isbn = models.CharField(max_length=13, unique=True)
     genre = models.ForeignKey(Genre, on_delete=models.CASCADE)
