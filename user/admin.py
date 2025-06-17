@@ -26,4 +26,5 @@ class AuthorAdmin(BaseUserAdmin):
     )
     list_display = ("first_name","last_name","email","phone_number","dob","dod" )
     list_display_links = ("email","phone_number","dod" )
-    list_editable = ("first_name","last_name","dob")
+    list_editable = ("first_name","last_name","phone_number")
+    list_per_page = 10

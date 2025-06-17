@@ -5,6 +5,7 @@ description = "A Library management app"
 requires-python = ">=3.13"
 dependencies = [
     "django>=5.2.1",
+    "djangorestframework>=3.16.0",
     "mysqlclient>=2.2.7",
     "python-dotenv>=1.1.0",
 ]
