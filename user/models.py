@@ -13,4 +13,4 @@ class User(AbstractUser):
 
 class Author(User):
     dob = models.DateField(blank=False, null=False)
-    dod = models.DateField(blank=False, null=False)
+    dod = models.DateField(blank=False, null=True)
