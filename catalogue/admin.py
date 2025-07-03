@@ -17,3 +17,10 @@ class GenreAdmin(admin.ModelAdmin):
 @admin.register(models.Language)
 class LanguageAdmin(admin.ModelAdmin):
     list_display = ('name',)
+
+
+@admin.register(models.BookImage)
+class BookImageAdmin(admin.ModelAdmin):
+    list_display = ['book', 'image']
+    list_display_links = ["image"]
+

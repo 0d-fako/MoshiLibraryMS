@@ -30,14 +30,14 @@ class Language(models.Model):
         return self.name
 
 
-# class Author(models.Model):
-#     first_name = models.CharField(max_length=100)
-#     last_name = models.CharField(max_length=100)
-#     dob = models.DateField()
-#     email = models.EmailField()
-#
-#     def __str__(self):
-#         return f'self.first_name + self.last_name'
+class Author(models.Model):
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+    dob = models.DateField()
+    email = models.EmailField()
+
+    def __str__(self):
+        return f'self.first_name + self.last_name'
 
 
 class Book(models.Model):
@@ -70,4 +70,7 @@ class BookInstance(models.Model):
 
 class BookImage(models.Model):
     image = models.ImageField(upload_to="book/images", blank=True, null=True)
-    book = models.ForeignKey(Book, on_delete=models.CASCADE)
+    book = models.ForeignKey(Book, on_delete=models.CASCADE, related_name="images")
+
+    def __str__(self):
+        return self.image.url
