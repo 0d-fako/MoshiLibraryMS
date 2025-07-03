@@ -1,8 +1,7 @@
 from pyexpat import model
 from rest_framework import serializers
 
-from catalogue.models import Book, BookImage
-from user.models import Author
+from catalogue.models import Book, BookImage, Author
 
 
 class AuthorSerializer(serializers.ModelSerializer):

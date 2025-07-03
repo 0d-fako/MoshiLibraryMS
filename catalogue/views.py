@@ -6,9 +6,9 @@ from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIV
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from catalogue.models import Book, BookImage
+from catalogue.models import Book, BookImage, Author
 from catalogue.serializers import BookSerializer, AuthorSerializer, AddBookSerializer, BookImageSerializer
-from user.models import Author
+
 
 
 # Create your views here.

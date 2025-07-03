@@ -19,7 +19,7 @@ class UserAdmin(BaseUserAdmin):
             },
         ),
     )
-    list_display = ("first_name","last_name","email","phone_number","dob","dod" )
-    list_display_links = ("email","dod" )
+    list_display = ("first_name","last_name","email","phone_number")
+    list_display_links = ("email", )
     list_editable = ("first_name","last_name","phone_number")
     list_per_page = 10

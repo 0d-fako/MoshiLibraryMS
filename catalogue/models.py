@@ -3,7 +3,7 @@ import uuid
 from django.db import models
 from django.contrib.auth.models import User
 from django.conf import settings
-from user.models import Author
+
 # Create your models here.
 
 class Genre(models.Model):
