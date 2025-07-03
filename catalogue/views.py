@@ -13,7 +13,7 @@ from catalogue.serializers import BookSerializer, AuthorSerializer, AddBookSeria
 
 # Create your views here.
 
-@api_view()
+@api_view(['GET'])
 def get_books(request):
     books = Book.objects.all()
     serializer = BookSerializer(books, many=True)

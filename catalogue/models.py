@@ -33,8 +33,9 @@ class Language(models.Model):
 class Author(models.Model):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
-    dob = models.DateField()
-    email = models.EmailField()
+    email = models.EmailField(unique=True)
+    dob = models.DateField(blank=True, null=False)
+    dod = models.DateField(blank=True, null=True)
 
     def __str__(self):
         return f'self.first_name + self.last_name'
@@ -66,6 +67,8 @@ class BookInstance(models.Model):
     comments=models.TextField(blank=True, null=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.book.title
 
 
 class BookImage(models.Model):

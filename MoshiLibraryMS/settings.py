@@ -15,7 +15,7 @@ from datetime import timedelta
 from dotenv import load_dotenv
 from pathlib import Path
 
-from user.serializers import UserCreateSerializer
+import user.serializers
 
 load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'djoser',
+    'drf_yasg'
     'catalogue',
     'user',
 ]
@@ -148,7 +149,7 @@ REST_FRAMEWORK = {
 
 DJOSER = {
     'SERIALIZERS': {
-        'user_create': UserCreateSerializer,
+        'user_create': user.serializers.UserCreateSerializer,
     }
 }
 
