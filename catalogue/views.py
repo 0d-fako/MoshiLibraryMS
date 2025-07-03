@@ -49,3 +49,6 @@ class BookViewSet(viewsets.ModelViewSet):
             return AddBookSerializer
         return BookSerializer
 
+class BookImageViewSet(viewsets.ModelViewSet):
+    queryset = BookImage.objects.all()
+    serializer_class = BookImageSerializer

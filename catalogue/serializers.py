@@ -14,7 +14,9 @@ class AuthorSerializer(serializers.ModelSerializer):
 class BookSerializer(serializers.ModelSerializer):
     author = AuthorSerializer(many=True, read_only=True)
     images = serializers.HyperlinkedRelatedField(
-        image_details
+        view_name='book-image-detail',
+        queryset=BookImage.objects.all(),
+        many=True
     )
     class Meta:
         model = Book
