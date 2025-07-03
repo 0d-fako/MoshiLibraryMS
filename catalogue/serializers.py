@@ -28,6 +28,11 @@ class AddBookSerializer(serializers.ModelSerializer):
 
 
 class BookImageSerializer(serializers.ModelSerializer):
+
+    def create(self, validated_data):
+        book_id = self.context['book_id']
+        return BookImage.objects.create(book_id=book_id, **validated_data)
+
     class Meta:
         model = BookImage
         fields = ['id','image']

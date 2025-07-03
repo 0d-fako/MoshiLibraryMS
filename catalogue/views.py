@@ -1,10 +1,10 @@
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
-from rest_framework import status, viewsets
+from rest_framework import status, viewsets, permissions
 from rest_framework.decorators import api_view
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.response import Response
-from rest_framework.views import APIView
+
 
 from catalogue.models import Book, BookImage, Author
 from catalogue.serializers import BookSerializer, AuthorSerializer, AddBookSerializer, BookImageSerializer
@@ -50,5 +50,12 @@ class BookViewSet(viewsets.ModelViewSet):
         return BookSerializer
 
 class BookImageViewSet(viewsets.ModelViewSet):
-    queryset = BookImage.objects.all()
     serializer_class = BookImageSerializer
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly, )
+
+    def get_queryset(self):
+        return BookImage.objects.filter(book_id=self.kwargs['book_pk'])
+
+    def perform_create(self, serializer):
+        book = get_object_or_404(Book, pk=self.kwargs['book_pk'])
+        serializer.save(book=book)
