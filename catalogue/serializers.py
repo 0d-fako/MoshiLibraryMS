@@ -1,7 +1,7 @@
 from pyexpat import model
 from rest_framework import serializers
 
-from catalogue.models import Book, BookImage, Author
+from catalogue.models import Book, BookImage, Author, BookInstance
 
 
 class AuthorSerializer(serializers.ModelSerializer):
@@ -36,6 +36,14 @@ class BookImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = BookImage
         fields = ['id','image']
+
+
+
+class BookInstanceSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = BookInstance
+        fields = ['return_date', 'comments']
+
 
 
     # id = serializers.IntegerField()
