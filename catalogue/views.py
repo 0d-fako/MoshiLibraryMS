@@ -61,6 +61,7 @@ class BookImageViewSet(viewsets.ModelViewSet):
             raise ValueError("book_id is required")
         serializer.save(book_id=book_id)
 
+
 @permission_classes([IsAuthenticated])
 @api_view(['POST'])
 def borrow_book(request, pk):

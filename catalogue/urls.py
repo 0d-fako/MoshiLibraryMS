@@ -24,4 +24,5 @@ urlpatterns = [
     path("authors/", views.AddAuthorView.as_view(), name='add_author'),
     path("authors/<int:pk>/", views.GetUpdateDestroyAPIView.as_view()),
     path('images/<int:pk>', views.image_details, name='image_details'),
+    path ('books/<int:pk>', views.borrow_book, name='borrow_book'),
 ]
