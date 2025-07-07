@@ -50,12 +50,12 @@ class BookViewSet(viewsets.ModelViewSet):
         return BookSerializer
 
 class BookImageViewSet(viewsets.ModelViewSet):
+    queryset = BookImage.objects.all()
     serializer_class = BookImageSerializer
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly, )
-
-    def get_queryset(self):
-        return BookImage.objects.filter(book_id=self.kwargs['book_pk'])
 
     def perform_create(self, serializer):
-        book = get_object_or_404(Book, pk=self.kwargs['book_pk'])
-        serializer.save(book=book)
+        print("KWARGS IN PERFORM_CREATE: ", self.kwargs )
+        book_id = self.kwargs.get("book_pk")
+        if not book_id:
+            raise ValueError("book_id is required")
+        serializer.save(book_id=book_id)
