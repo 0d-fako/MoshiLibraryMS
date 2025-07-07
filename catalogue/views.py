@@ -1,3 +1,6 @@
+import smtplib
+
+from django.core.mail import send_mail
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 from rest_framework import status, viewsets, permissions
@@ -6,7 +9,7 @@ from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIV
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
-
+from django.conf import settings
 from catalogue.models import Book, BookImage, Author, BookInstance
 from catalogue.serializers import BookSerializer, AuthorSerializer, AddBookSerializer, BookImageSerializer, \
     BookInstanceSerializers
@@ -70,9 +73,18 @@ def borrow_book(request, pk):
     data = BookInstanceSerializers(data=request.data)
     data.is_valid(raise_exception=True)
     book_instance = BookInstance()
-    book_instance.user = user
+    book_instance.user = request.user
     book_instance.book = book
     book_instance.return_date = data.validated_data['return_date']
     book_instance.comments = data.validated_data['comments']
     book_instance.save()
+    subject = "Notification from Moshi Library"
+    message = f'''
+                The request to borrow {book.title} was successful. 
+        '''
+    from_email = settings.DEFAULT_FROM_EMAIL
+    try:
+        send_mail(message=message,from_email=from_email,recipient_list=[user.email],subject=subject)
+    except smtplib.SMTPAuthenticationError as e:
+        return Response({"error": e}, status=status.HTTP_400_BAD_REQUEST)
     return Response({'message' : "book borrowed successfully"},status=status.HTTP_200_OK )
